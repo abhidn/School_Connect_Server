@@ -27,7 +27,11 @@ const facultySchema = new Schema({
         type: String,
         required: true
     },
-    department: {
+    // department: {
+    //     type: String, 
+    //     required: true
+    // },
+    classroom: {
         type: String, 
         required: true
     },

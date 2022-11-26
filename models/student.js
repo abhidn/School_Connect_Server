@@ -40,11 +40,15 @@ const studentSchema = new Schema({
     registrationNumber: {
         type: String
     },
-    department: {
+    // department: {
+    //     type: String,
+    //     required: true
+    // },
+    classroom: {
         type: String,
         required: true
     },
-    section: {
+    division: {
         type: String,
         required: true
     },

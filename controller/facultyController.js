@@ -65,15 +65,15 @@ module.exports = {
             if (!isValid) {
                 return res.status(400).json(errors);
             }
-            const { department, year, section } = req.body;
-            const subjectList = await Subject.find({ department, year })
+            const { classroom, year, division } = req.body;
+            const subjectList = await Subject.find({ classroom, year })
             if (subjectList.length === 0) {
-                errors.department = 'No Subject found in given department';
+                errors.classroom = 'No Subject found in given classroom';
                 return res.status(404).json(errors);
             }
-            const students = await Student.find({ department, year, section })
+            const students = await Student.find({ classroom, year, division })
             if (students.length === 0) {
-                errors.department = 'No Student found'
+                errors.classroom = 'No Student found'
                 return res.status(404).json(errors);
             }
             res.status(200).json({
@@ -97,14 +97,14 @@ module.exports = {
     },
     markAttendence: async (req, res, next) => {
         try {
-            const { selectedStudents, subjectCode, department,
+            const { selectedStudents, subjectCode, classroom,
                 year,
-                section } = req.body
+                division } = req.body
             
             const sub = await Subject.findOne({ subjectCode })
 
             //All Students
-            const allStudents = await Student.find({ department, year, section })
+            const allStudents = await Student.find({ classroom, year, division })
             
             var filteredArr = allStudents.filter(function (item) {
                 return selectedStudents.indexOf(item.id) === -1
@@ -159,10 +159,10 @@ module.exports = {
             if (!isValid) {
                 return res.status(400).json(errors);
             }
-            const { subjectCode, exam, totalMarks, marks, department, year,
-                section } = req.body
+            const { subjectCode, exam, totalMarks, marks, classroom, year,
+                division } = req.body
             const subject = await Subject.findOne({ subjectCode })
-            const isAlready = await Mark.find({ exam, department, section, subjectCode:subject._id })
+            const isAlready = await Mark.find({ exam, classroom, division, subjectCode:subject._id })
             if (isAlready.length !== 0) {
                 errors.exam = "You have already uploaded marks of given exam"
                 return res.status(400).json(errors);
@@ -172,8 +172,8 @@ module.exports = {
                     student: marks[i]._id,
                     subject: subject._id,
                     exam,
-                    department,
-                    section,
+                    classroom,
+                    division,
                    
                     marks: marks[i].value,
                     totalMarks

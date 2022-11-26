@@ -21,10 +21,10 @@ const keys = require('../config/key')
 module.exports = {
     addAdmin: async (req, res, next) => {
         try {
-            const { name, email, dob, department, contactNumber } = req.body
+            const { name, email, dob, classroom, contactNumber } = req.body
             
             //VALIDATE REQUEST BODY
-            if (!name || !email || !dob || !department || !contactNumber){
+            if (!name || !email || !dob || !classroom || !contactNumber){
                 return res.status(400).json({success:false, message:"Probably you have missed certain fields"})
             }
 
@@ -34,30 +34,30 @@ module.exports = {
             }
             const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
             let departmentHelper;
-            if (department === "C.S.E") {
-                departmentHelper = "01"
+            if (classroom === "ten") {
+                classroomHelper = "01"
             }
-            else if (department === "E.C.E") {
+            else if (classroom === "Nine") {
                 departmentHelper = "02"
             }
-            else if (department === "I.T") {
+            else if (classroom === "Eight") {
                 departmentHelper = "03"
             }
-            else if (department === "Mechanical") {
+            else if (classroom === "seven") {
                 departmentHelper = "04"
             }
-            else if (department === "Civil") {
+            else if (classroom === "six") {
                 departmentHelper = "05"
 
             }
-            else if (department === "E.E.E") {
+            else if (classroom === "five") {
                 departmentHelper = "06"
             }
             else {
                 departmentHelper = "00"
             }
 
-            const admins = await Admin.find({ department })
+            const admins = await Admin.find({ classroom })
             let helper;
             if (admins.length < 10) {
                 helper = "00" + admins.length.toString()
@@ -86,7 +86,7 @@ module.exports = {
                 password: hashedPassword,
                 joiningYear,
                 registrationNumber,
-                department,
+                classroom,
                 avatar,
                 contactNumber,
                 dob,
@@ -137,7 +137,7 @@ module.exports = {
                 contactNumber: admin.contactNumber, avatar: admin.avatar,
                 registrationNumber: admin.registrationNumber,
                 joiningYear: admin.joiningYear,
-                department: admin.department
+                classroom: admin.classroom
             };
             jwt.sign(
                 payload,
@@ -164,7 +164,7 @@ module.exports = {
                 return res.status(400).json(errors)
             }
             const { name, email, year, fatherName, aadharCard,
-                gender, department, section, dob, studentMobileNumber,
+                gender, classroom, division, dob, studentMobileNumber,
                 fatherMobileNumber } = req.body
 
             const student = await Student.findOne({ email })
@@ -172,21 +172,22 @@ module.exports = {
                 errors.email = "Email already exist"
                 return res.status(400).json(errors)
             }
+            
             const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
             let departmentHelper;
-            if (department === "C.S.E") {
+            if (classroom === "Ten") {
                 departmentHelper = "01"
             }
-            else if (department === "E.C.E") {
+            else if (classroom === "Nine") {
                 departmentHelper = "02"
             }
-            else if (department === "I.T") {
+            else if (classroom === "Eight") {
                 departmentHelper = "03"
             }
-            else if (department === "Mechanical") {
+            else if (classroom === "Seven") {
                 departmentHelper = "04"
             }
-            else if (department === "Civil") {
+            else if (classroom === "Six") {
                 departmentHelper = "05"
 
             }
@@ -194,7 +195,7 @@ module.exports = {
                 departmentHelper = "06"
             }
 
-            const students = await Student.find({ department })
+            const students = await Student.find({ classroom })
             let helper;
             if (students.length < 10) {
                 helper = "00" + students.length.toString()
@@ -226,8 +227,8 @@ module.exports = {
                 aadharCard,
                 gender,
                 registrationNumber,
-                department,
-                section,
+                classroom,
+                division,
                 batch,
                 avatar,
                 dob,
@@ -269,7 +270,7 @@ module.exports = {
             if (!isValid) {
                 return res.status(400).json(errors)
             }
-            const { name, email, designation, department, facultyMobileNumber,
+            const { name, email, designation, classroom, facultyMobileNumber,
                 aadharCard, dob, gender } = req.body
             const faculty = await Faculty.findOne({ email })
             if (faculty) {
@@ -282,26 +283,26 @@ module.exports = {
                 d: 'mm' // Default
             });
             let departmentHelper;
-            if (department === "C.S.E") {
+            if (classroom === "ten") {
                 departmentHelper = "01"
             }
-            else if (department === "E.C.E") {
+            else if (classroom === "Nine") {
                 departmentHelper = "02"
             }
-            else if (department === "I.T") {
+            else if (classroom === "Eight") {
                 departmentHelper = "03"
             }
-            else if (department === "Mechanical") {
+            else if (classroom === "seven") {
                 departmentHelper = "04"
             }
-            else if (department === "Civil") {
+            else if (classroom === "six") {
                 departmentHelper = "05"
             }
             else {
                 departmentHelper = "06"
             }
 
-            const faculties = await Faculty.find({ department })
+            const faculties = await Faculty.find({ classroom })
             let helper;
             if (faculties.length < 10) {
                 helper = "00" + faculties.length.toString()
@@ -329,7 +330,7 @@ module.exports = {
                 email,
                 designation,
                 password: hashedPassword,
-                department,
+                classroom,
                 facultyMobileNumber,
                 gender,
                 avatar,
@@ -367,7 +368,7 @@ module.exports = {
             if (!isValid) {
                 return res.status(400).json(errors)
             }
-            const { totalLectures, department, subjectCode,
+            const { totalLectures, classroom, subjectCode,
                 subjectName, year } = req.body
             const subject = await Subject.findOne({ subjectCode })
             if (subject) {
@@ -376,15 +377,15 @@ module.exports = {
             }
             const newSubject = await new Subject({
                 totalLectures,
-                department,
+                classroom,
                 subjectCode,
                 subjectName,
                 year
             })
             await newSubject.save()
-            const students = await Student.find({ department, year })
+            const students = await Student.find({ classroom, year })
             if (students.length === 0) {
-                errors.department = "No branch found for given subject"
+                errors.classroom = "No branch found for given subject"
                 return res.status(400).json(errors)
             }
             else {
@@ -413,8 +414,8 @@ module.exports = {
     },
     getAllFaculty: async (req, res, next) => {
         try {
-            const { department } = req.body
-            const allFaculties = await Faculty.find({ department })
+            const { classroom } = req.body
+            const allFaculties = await Faculty.find({ classroom })
             res.status(200).json({ result: allFaculties })
         }
         catch (err) {
@@ -423,8 +424,8 @@ module.exports = {
     },
     getAllStudent: async (req, res, next) => {
         try {
-            const { department, year } = req.body
-            const allStudents = await Student.find({ department, year })
+            const { classroom, year } = req.body
+            const allStudents = await Student.find({ classroom, year })
             res.status(200).json({ result: allStudents })
         }
         catch (err) {
@@ -433,8 +434,8 @@ module.exports = {
     },
     getAllSubject: async (req, res, next) => {
         try {
-            const { department, year } = req.body
-            const allSubjects = await Subject.find({ department, year })
+            const { classroom, year } = req.body
+            const allSubjects = await Subject.find({ classroom, year })
             res.status(200).json({ result: allSubjects })
         }
         catch (err) {

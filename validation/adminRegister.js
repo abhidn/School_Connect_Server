@@ -6,15 +6,15 @@ const validateAdminRegisterInput = (data) => {
     let errors = {}
     data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
-    data.department = !isEmpty(data.department) ? data.department : '';
+    data.classroom = !isEmpty(data.classroom) ? data.classroom : '';
     data.dob = !isEmpty(data.dob) ? data.dob : '';
     data.contactNumber = !isEmpty(data.contactNumber) ? data.contactNumber : '';
     if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
         errors.name = 'Name must be between 2 and 30 characters';
     }
-    if (!Validator.isLength(data.contactNumber, { min: 10, max: 10 })) {
-        errors.contactNumber = 'ContactNumber must be of 10 digit';
-    }
+    // if (!Validator.isLength(data.contactNumber, { min: 10, max: 10 })) {
+    //     errors.contactNumber = 'ContactNumber must be of 10 digit';
+    // }
     if (Validator.isEmpty(data.name)) {
         errors.name = 'Name field is required';
     }
@@ -24,8 +24,8 @@ const validateAdminRegisterInput = (data) => {
     if (Validator.isEmpty(data.email)) {
         errors.email = 'Email field is required';
     }
-    if (Validator.isEmpty(data.department)) {
-        errors.department = 'Department field is required';
+    if (Validator.isEmpty(data.classroom)) {
+        errors.classroom = 'classroom field is required';
     }
     if (Validator.isEmpty(data.dob)) {
         errors.dob = 'DOB field is required';

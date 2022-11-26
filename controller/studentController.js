@@ -81,8 +81,8 @@ module.exports = {
     },
     getAllStudents: async (req, res, next) => {
         try {
-            const { department, year, section } = req.body;
-            const students = await Student.find({ department, year, section })
+            const { classroom, year, division } = req.body;
+            const students = await Student.find({ classroom, year, division })
             if (students.length === 0) {
                 return res.status(400).json({ message: "No student found" })
             }
@@ -368,8 +368,8 @@ module.exports = {
     },
     getAllSubjects: async (req, res, next) => {
         try {
-            const { department, year } = req.user;
-            const subjects = await Subject.find({ department, year })
+            const { classroom, year } = req.user;
+            const subjects = await Subject.find({ classroom, year })
             if (subjects.length === 0) {
                 return res.status(404).json({ message: "No subjects founds" })
             }
@@ -382,8 +382,8 @@ module.exports = {
     getMarks: async (req, res, next) => {
         try {
             console.log("req.user",req.user)
-            const {department, year, id} = req.user
-            const getMarks = await Mark.find({ department, student: id }).populate('subject')
+            const {classroom, year, id} = req.user
+            const getMarks = await Mark.find({ classroom, student: id }).populate('subject')
             console.log("getMarks",getMarks)
           
             const CycleTest1 = getMarks.filter((obj) => {

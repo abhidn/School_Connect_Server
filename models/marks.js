@@ -22,13 +22,13 @@ const markSchema = new Schema({
         type: Number,
         default: 100
     },
-    department: {
+    classroom: {
         type:String
     },
     semester: {
         type:Number
     },
-    section: {
+    division: {
         type:String
     }
 })

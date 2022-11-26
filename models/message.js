@@ -30,7 +30,9 @@ const messageSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        // new Date( record.date.getTime() -  ( record.offset * 60000 ) );
+        // default: Date( Date.now.getTime() + ( Date.now.getTimezoneOffset() * 60000 ) )
     }
 })
 

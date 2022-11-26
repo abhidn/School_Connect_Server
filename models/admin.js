@@ -17,7 +17,7 @@ const adminSchema = new Schema({
     registrationNumber: {
         type: String
     },
-    department: {
+    classroom: {
         type: String
     },
     dob: {
