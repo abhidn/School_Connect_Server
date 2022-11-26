@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
-
+const Validator = require('validator');
 const studentSchema = new Schema({
     name: {
         type: String,
@@ -9,7 +9,9 @@ const studentSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        
+        
     },
     avatar: {
         type: String
@@ -61,9 +63,12 @@ const studentSchema = new Schema({
     },
     studentMobileNumber: {
         type: Number
+       
     },
     fatherMobileNumber: {
         type: Number
+      
+        
     },
     fatherName: {
         type: String

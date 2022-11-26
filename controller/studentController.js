@@ -7,6 +7,8 @@ const Subject = require('../models/subject')
 const Attendence = require('../models/attendence')
 const Message = require('../models/message')
 const Mark = require("../models/marks")
+const Book =require('../models/userSchema')
+
 
 //File Handler
 const bufferConversion = require('../utils/bufferConversion')
@@ -379,6 +381,7 @@ module.exports = {
             return res.status(400).json({"Error in getting all subjects":err.message})
         }
     },
+   
     getMarks: async (req, res, next) => {
         try {
             console.log("req.user",req.user)

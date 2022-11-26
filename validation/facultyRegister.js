@@ -9,6 +9,9 @@ const validateFacultyRegisterInput = (data) => {
     data.classroom = !isEmpty(data.classroom) ? data.classroom : '';
     data.designation = !isEmpty(data.designation) ? data.designation : '';
     data.dob = !isEmpty(data.dob) ? data.dob : '';
+    data.aadharCard = !isEmpty(data.aadharCard) ? data.aadharCard : '';
+    data.facultyMobileNumber = !isEmpty(data.facultyMobileNumber) ? data.facultyMobileNumber : '';
+
 
     if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
         errors.name = 'Name must be between 2 and 30 characters';
@@ -36,7 +39,25 @@ const validateFacultyRegisterInput = (data) => {
     if (Validator.isEmpty(data.designation)) {
         errors.designation = 'Designation field is required';
     }
-
+    if (Validator.isEmpty(data.gender)) {
+        errors.gender = 'gender field is required';
+    }
+    if (Validator.isEmpty(data.aadharCard)) {
+        errors.aadharCard = 'aadharCard field is required';
+    }
+    if (!Validator.isLength(data.aadharCard, { min: 12, max: 12 })) {
+        errors.aadharCard = 'aadharCard Number must be 12 digits';
+        
+    }
+    
+    
+    if (!Validator.isLength(data.facultyMobileNumber, { min: 10, max: 10 })) {
+        errors.facultyMobileNumber = 'facultyMobileNumber Number must be 10 digits';
+    }
+    if (Validator.isEmpty(data.facultyMobileNumber)) {
+        errors.facultyMobileNumber = 'facultyMobileNumber field is required';
+    }
+    console.log(errors)
     return {
         errors,
         isValid: isEmpty(errors)
