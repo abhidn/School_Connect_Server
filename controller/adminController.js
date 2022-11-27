@@ -35,7 +35,7 @@ module.exports = {
             const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' })
             let departmentHelper;
             if (classroom === "ten") {
-                classroomHelper = "01"
+                departmentHelper = "01"
             }
             else if (classroom === "Nine") {
                 departmentHelper = "02"
