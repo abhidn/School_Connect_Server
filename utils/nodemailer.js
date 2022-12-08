@@ -6,6 +6,7 @@ const transport = nodemailer.createTransport({
     secure: true,
     debug: true,
     auth: {
+        
         user: process.env.GMAIL_USERNAME,
         pass: process.env.GMAIL_PASSWORD
     }
@@ -16,6 +17,7 @@ const sendMail = async (email, secretToken, mode) => {
         if (mode == 'OTP') {
             
             return await transport.sendMail({
+               
                 from: process.env.GMAIL_USERNAME,
                 to: email,
                 subject: "OTP Submission",
