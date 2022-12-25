@@ -296,7 +296,7 @@ module.exports = {
             const { email, gender, facultyMobileNumber,
                 aadharCard } = req.body
             const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
-            const imgResponse = await cloudinary.uploader.upload(userPostImg)
+            // const imgResponse = await cloudinary.uploader.upload(userPostImg)
             const faculty = await Faculty.findOne({ email })
             if (gender) {
                 faculty.gender = gender
@@ -310,8 +310,8 @@ module.exports = {
                 faculty.aadharCard = aadharCard
                 await faculty.save()
             }
-            faculty.avatar = imgResponse.secure_url
-            await faculty.save()
+            // faculty.avatar = imgResponse.secure_url
+            // await faculty.save()
             res.status(200).json(faculty)
         }
         catch (err) {

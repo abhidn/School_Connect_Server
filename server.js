@@ -6,7 +6,9 @@ const passport = require('passport')
 const cors = require('cors');
 const morgan = require('morgan')
 const dotenv = require('dotenv');
-dotenv.config()
+
+// new changes 12-12-2022
+dotenv.config({ path: './config.env' })
 
 
 

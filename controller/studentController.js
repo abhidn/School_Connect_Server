@@ -326,7 +326,7 @@ module.exports = {
                 return filteredObj
             })
             var filteredList = [...new Set(filteredObj.map(JSON.stringify))].map(JSON.parse)
-            console.log("filterdList",filteredList)
+            // console.log("filterdList",filteredList)
             res.status(200).json({ result: filteredList })
         }
         catch (err) {
@@ -338,7 +338,7 @@ module.exports = {
             const {email, gender, studentMobileNumber, fatherName,
                 fatherMobileNumber, aadharCard} = req.body
             const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
-            const imgResponse = await cloudinary.uploader.upload(userPostImg)
+            // const imgResponse = await cloudinary.uploader.upload(userPostImg)
             const student = await Student.findOne({ email })
             if (gender) {
                 student.gender = gender
@@ -360,8 +360,8 @@ module.exports = {
                 student.aadharCard = aadharCard
                 await student.save()
             }
-                student.avatar = imgResponse.secure_url
-                await student.save()
+                // student.avatar = imgResponse.secure_url
+                // await student.save()
                 res.status(200).json(student)
         }
         catch (err) {
@@ -387,7 +387,7 @@ module.exports = {
             console.log("req.user",req.user)
             const {classroom, year, id} = req.user
             const getMarks = await Mark.find({ classroom, student: id }).populate('subject')
-            console.log("getMarks",getMarks)
+            // console.log("getMarks",getMarks)
           
             const CycleTest1 = getMarks.filter((obj) => {
                 return obj.exam === "CycleTest1"
